@@ -86,7 +86,7 @@ app.use("/api/orders", ordersRoutes);
 
 export function crearServidor(PORT) {
     runDb();
-    const server = httpServer.listen(PORT, () => {
+    const server = httpServer.listen(process.env.PORT || PORT, () => {
         console.log(
             `Server running on port: ${PORT} -- Worker ${process.pid} started`
         );

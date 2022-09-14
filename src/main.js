@@ -1,3 +1,3 @@
-import { crearServidor } from './server.js';
+import { crearServidor } from "./server.js";
 
-crearServidor(8000)
+crearServidor(8000);
