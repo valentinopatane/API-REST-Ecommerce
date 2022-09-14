@@ -44,8 +44,7 @@ io.on("connection", async (socket) => {
 
     socket.on("message", async (msg) => {
         const message = { date: new Date().toLocaleString(), ...msg };
-        console.log(message);
-        // await chat.getDao().saveMessage(msg);
+        await chat.getDao().saveMessage(message);
         const messagesL = await chat.getDao().getMessages();
         socket.emit("chatResponse", messagesL);
     });
@@ -88,7 +87,7 @@ export function crearServidor(PORT) {
     runDb();
     const server = httpServer.listen(process.env.PORT || PORT, () => {
         console.log(
-            `Server running on port: ${PORT} -- Worker ${process.pid} started`
+            `Server running on port: ${process.env.PORT} -- Worker ${process.pid} started`
         );
     });
     server.on("error", (error) => console.log(`Error en servidor: ${error}`));
