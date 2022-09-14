@@ -20,7 +20,6 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "mocha",
     "start": "node src/main.js",
     "start:cluster": "node src/cluster.js"
   },
