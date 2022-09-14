@@ -1,0 +1,15 @@
+{{#if this}}
+
+  <ul id="chatBox">
+    {{#each this}}
+      <li>
+        <span class="user">{{this.name}}</span> &nbsp : &nbsp
+        <span class="msg">{{this.text}}</span>
+
+      </li>
+    {{/each}}
+  </ul>
+
+{{else}}
+  <h4 style="color: #808080; width:100%; text-align:center">No messages available.</h4>
+{{/if}}

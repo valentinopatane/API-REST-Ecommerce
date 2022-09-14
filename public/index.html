@@ -1,0 +1,142 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
+    <title>API REST E-Commerce</title>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <header>
+        <h1 class="mainTitle">¡Hi welcome to my <span>E-Commerce API</span>!</h1>
+        <p class="mainInfo">
+            This API works as a management tool for an internet based store.  <br>
+            If you use it as the shop owner you will be able to, create, edit and delete products.  <br>
+            If you are a client you will be able to only see those products with the ability to add them to your personal cart and emit a buying order if you want to. <br>
+            All of this actions would be possible if first the user creates their own account.</p>
+        <h5>Created by Valentino Patané</h5>
+
+    </header>
+    <main>
+        <h2>Documentation</h2>
+        <p>Everything will be shown as JSON type. Requests must be done in JSON format.</p>
+
+        <div>
+            <h3>Users</h3>
+            <ul>
+                <li class="productById">                    
+                    <div>
+                        <span class="post">POST</span> &nbsp " /api/users " : Creates a new user account.
+                    </div>
+                    <ol>
+                        <li id="data">Data required:</li>
+                        <li>Email, Password, Name, LastName, Phone, Image</li>
+                    </ol>
+                    <p style="margin-top: 20px; margin-bottom: 0;"> -- Password is encrypted, so the system is completly safe!</p>
+                    <p style="margin-top: 0px;"> -- If any field is empty, user isn't registered or password is incorrect, an error will occur.</p>
+                </li>
+                <li class="productById">                    
+                    <div>
+                        <span class="post">POST</span> &nbsp " /login " : Logs in an existing user. (Only for registered users)
+                    </div>
+                    <ol>
+                        <li id="data">Data required:</li>
+                        <li>Email, Password</li>
+                    </ol>
+                    <p style="margin-top: 20px; margin-bottom: 0;"> -- Password is encrypted, so the system is completly safe!</p>
+                    <p style="margin-top: 0px;"> -- If any field is empty, email doesn't contain @ or password is less than 6 characters, an error will occur.</p>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h3>Products</h3>
+            <ul>
+                <li><span class="get">GET</span> &nbsp " /api/products " : Shows every product listed.</li>
+                <li><span class="get">GET</span> &nbsp " /api/products/{id} " : Shows an specific product. If the ID isn't right or it doesn't refer to any product, an error will occur.</li>
+                <li class="productById">
+                    <div>
+                        <span class="post">POST</span> &nbsp " /api/products " : Creates a new product. (Only for registered users with admin permissions.)
+                    </div>
+                    <ol>
+                        <li id="data">Data required:</li>
+                        <li>Name, Description, Category, Price, Image (File format)</li>
+                    </ol>
+                    <p style="margin-top: 20px;"> -- If any field is empty, name or description has less than 3 characters or price is not a number, an error will occur.</p>
+                </li>
+                <li class="productById">                    
+                    <div>
+                        <span class="put">PUT</span> &nbsp " /api/products/{id} " : Updates a product using its ID. (Only for registered users with admin permissions.)
+                    </div>
+                    <ol>
+                        <li id="data">Data required:</li>
+                        <li>Name, Description, Category, Price, Image (File format)</li>
+                    </ol>
+                    <p style="margin-top: 20px;"> -- If any field is empty, name or description has less than 3 characters or price is not a number, an error will occur.</p></li>
+                <li><span class="delete"> DELETE</span> &nbsp " /api/products/{id} " : Deletes a product using only its ID. (Only for registered users with admin permissions.)</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Carts</h3>
+            <ul>
+                <li class="productById">                    
+                    <div>
+                        <span class="get">GET</span> &nbsp " /api/shoppingcartproducts " : Shows every product in user's cart. (Only for registered users).
+                    </div>
+                </li>
+                <li class="productById">                    
+                    <div>
+                        <span class="post">POST</span> &nbsp " /api/shoppingcartproducts " : Adds a product to user's cart. (Only for registered users)
+                    </div>
+                    <ol>
+                        <li id="data">Data required:</li>
+                        <li>Product ID, through request body.</li>
+                    </ol>
+                    <p style="margin-top: 20px; margin-bottom: 0;"> -- If the same product is added twice or more, the "cant" key will increase its value.</p>
+                    <p style="margin-top: 0px;"> -- If Product ID doesn't match an existing ID from the product list, an error will occur.</p>
+                </li>
+                <li class="productById">                    
+                    <div>
+                        <span class="delete">DELETE</span> &nbsp " /api/shoppingcartproducts/{id} " : Deletes a product from user's cart. (Only for registered users)
+                    </div>
+                    <ol>
+                        <li id="data">Data required:</li>
+                        <li>Product ID, through URL.</li>
+                    </ol>
+                    <p style="margin-top: 20px; margin-bottom: 0;"> -- If a product with more than one as value for "cant" is deleted, the "cant" key will decrease its value. Although, if it has only one, it will be completly removed.</p>
+                    <p style="margin-top: 0px;"> -- If Product ID doesn't match an existing ID from the cart, an error will occur.</p>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h3>Orders</h3>
+            <ul>
+                <li class="productById">                    
+                    <div>
+                        <span class="get">GET</span> &nbsp " /api/orders " : Shows every order in user's account. (Only for registered users).
+                    </div>
+                </li>
+                <li class="productById">                    
+                    <div>
+                        <span class="post">POST</span> &nbsp " /api/orders " : Emits a new buying order. (Only for registered users)
+                    </div>
+                    <p style="margin-top: 20px; margin-bottom: 0;"> -- When the new order is emitted, the system will send an email to the admin and to the user.</p>
+                    <p style="margin-top: 0px;"> -- If cart is empty, an error will occur.</p>
+                </li>
+            </ul>
+        </div>
+      <!-- CHAT-->
+      <div class="chatSection">
+        <h4>Leave a live message!</h4>
+        <span id="chat"></span>
+        <span id="input"></span>
+      </div>
+
+
+
+    <!-- LINK HBS -->
+    <script src="https://cdn.socket.io/4.5.2/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+    <script src="/js/index.js"></script>
+  </body>
+</html>
