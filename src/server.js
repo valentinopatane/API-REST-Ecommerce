@@ -4,9 +4,10 @@ import runDb from "../database/db.js";
 import bodyParser from "body-parser";
 import cors from "cors";
 import { Server as IOServer } from "socket.io";
-import { engine } from "express-handlebars";
-import path from "path";
+import exphbs from "express-handlebars";
 import { fileURLToPath } from "url";
+import { dirname, join } from "path";
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 import chat from "../dao/messages/messages-dao-factory.js";
 import {
@@ -22,17 +23,19 @@ const app = express();
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
-app.engine(
-    "handlebars",
-    engine({
-        defaultLayout: "index.html",
-    })
-);
 const httpServer = http.createServer(app);
-app.use(express.static("public"));
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+app.set("views", join(__dirname, "/views"));
+
+const hbs = exphbs.create({
+    defaultLayout: "index",
+    layoutsDir: join(app.get("views"), "layouts"),
+    partialsDir: join(app.get("views"), "partials"),
+    extname: ".handlebars",
+});
+
+app.engine(".handlebars", hbs.engine);
+app.set("view engine", ".handlebars");
 
 /* ----------CHAT---------- */
 
@@ -46,12 +49,12 @@ io.on("connection", async (socket) => {
         const message = { date: new Date().toLocaleString(), ...msg };
         await chat.getDao().saveMessage(message);
         const messagesL = await chat.getDao().getMessages();
-        socket.emit("chatResponse", messagesL);
+        io.emit("showMessages", messagesL);
     });
 });
 /* ----------Routes---------- */
 
-app.get("/", (req, res) => res.sendFile(__dirname + "/../public/index.html"));
+app.get("/", (req, res) => res.render("chat"));
 
 app.get("/info", (req, res) => {
     const datos = {
