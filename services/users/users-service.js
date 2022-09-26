@@ -54,6 +54,6 @@ export default class UsersService {
             userObtained.dto.userId
         );
 
-        return { result: userObtained.dto, token };
+        return { user: userObtained.dto, token };
     }
 }
