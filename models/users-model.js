@@ -48,7 +48,7 @@ export default class UsersModel {
         this.#name = name;
     }
 
-    set lastName(lastName) {
+    set lastname(lastName) {
         if (!lastName) {
             throw new Error("Error. Invalid Last Name");
         }
