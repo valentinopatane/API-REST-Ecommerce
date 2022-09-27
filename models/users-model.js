@@ -8,12 +8,12 @@ export default class UsersModel {
     #lastname;
     #phone;
     #image;
-    constructor({ userId, email, password, name, lastName, phone, image }) {
+    constructor({ userId, email, password, name, lastname, phone, image }) {
         (this.userId = userId),
             (this.email = email),
             (this.password = password),
             (this.name = name),
-            (this.lastname = lastName),
+            (this.lastname = lastname),
             (this.phone = phone),
             (this.image = image);
     }
@@ -48,11 +48,11 @@ export default class UsersModel {
         this.#name = name;
     }
 
-    set lastname(lastName) {
-        if (!lastName) {
+    set lastname(lastname) {
+        if (!lastname) {
             throw new Error("Error. Invalid Last Name");
         }
-        this.#lastname = lastName;
+        this.#lastname = lastname;
     }
 
     set phone(phone) {
