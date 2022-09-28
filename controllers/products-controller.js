@@ -38,6 +38,7 @@ export async function updateProduct(req, res) {
         );
         res.status(200).json(updatedProduct);
     } catch (e) {
+        console.log(e);
         res.status(404).json(e.message);
     }
 }
