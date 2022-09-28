@@ -40,7 +40,6 @@ export async function updateProduct(req, res) {
     } catch (e) {
         console.log(id);
         console.log(...newData);
-        console.log(e);
         res.status(404).json(e.message);
     }
 }
