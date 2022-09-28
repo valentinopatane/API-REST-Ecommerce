@@ -36,10 +36,10 @@ export async function updateProduct(req, res) {
             id,
             ...newData
         );
-        console.log(id);
-        console.log(...newData);
         res.status(200).json(updatedProduct);
     } catch (e) {
+        console.log(id);
+        console.log(...newData);
         console.log(e);
         res.status(404).json(e.message);
     }
