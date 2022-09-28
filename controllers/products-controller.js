@@ -32,14 +32,9 @@ export async function updateProduct(req, res) {
     const { id } = req.params;
     const newData = req.body;
     try {
-        const updatedProduct = await ProductsService.updateProduct(
-            id,
-            ...newData
-        );
+        const updatedProduct = await ProductsService.updateProduct(id, newData);
         res.status(200).json(updatedProduct);
     } catch (e) {
-        console.log(id);
-        console.log(...newData);
         res.status(404).json(e.message);
     }
 }
